@@ -33,6 +33,11 @@ const mainNavItems: NavItem[] = [
         href: '/roles',
         icon: LayoutGrid,
     },
+    {
+        title: 'Users',
+        href: '/users',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
