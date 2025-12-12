@@ -23,6 +23,16 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Permissions',
+        href: '/permissions',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Roles',
+        href: '/roles',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
