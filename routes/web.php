@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -44,6 +45,9 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{user}/roles', [UserController::class, 'edit'])->name('users.roles.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+// This is for Articles
+
+    Route::resource('articles', ArticleController::class);
 
 });
 require __DIR__.'/settings.php';
