@@ -43,6 +43,17 @@ const mainNavItems: NavItem[] = [
         href: '/articles',
         icon: LayoutGrid,
     },
+  
+    {
+        title: 'Employees',
+        href: '/employees',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Applicatons',
+        href: '/application',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

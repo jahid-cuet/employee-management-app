@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -47,7 +49,24 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('users.upda
 
 // This is for Articles
 
-    Route::resource('articles', ArticleController::class);
+Route::resource('articles', ArticleController::class);
+
+//This is for Employees
+
+Route::resource('employees', EmployeeController::class);
+
+
+// For application
+
+Route::get('/application', [ApplicationController::class, 'index']);
+Route::put('/applications/{application}/status', [ApplicationController::class, 'updateStatus'])->name('applications.status');
 
 });
+
+
+// Public route
+Route::get('/apply', [ApplicationController::class, 'create']);
+Route::post('/apply', [ApplicationController::class, 'store']);
+
+
 require __DIR__.'/settings.php';

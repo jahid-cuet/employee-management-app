@@ -60,7 +60,8 @@ const successMessage = ref(page.props.flash?.success || '');
           class="w-full"
         />
 
-        <Button type="submit">Update permission</Button>
+        <Button type="submit" variant="secondary" size="lg"
+                                        class="cursor-pointer">Update permission</Button>
       </Form>
     </div>
   </AppLayout>

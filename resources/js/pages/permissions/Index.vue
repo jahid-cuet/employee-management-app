@@ -53,7 +53,8 @@ function confirmDelete() {
             <!-- Create Button -->
             <div class="mb-4">
                 <Link href="/permissions/create">
-                    <Button class="cursor-pointer">Create Permission</Button>
+                    <Button variant="secondary" size="lg"
+                                        class="cursor-pointer">Create Permission</Button>
                 </Link>
             </div>
 

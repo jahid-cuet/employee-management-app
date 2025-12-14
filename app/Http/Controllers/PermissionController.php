@@ -32,7 +32,7 @@ public function store(Request $request)
     Permission::create([
         'name' => $validated['name'],
     ]);
-return redirect()->route('permission.index')->with('success', 'Permission added successfully!');
+return redirect()->route('permissions.index')->with('success', 'Permission added successfully!');
 
 }
 
