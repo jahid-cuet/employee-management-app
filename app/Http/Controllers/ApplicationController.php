@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\ApplicationRejectedMail;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -49,23 +50,28 @@ class ApplicationController extends Controller
 
 
     // Update status (accept/reject)
-    public function updateStatus(Request $request, Application $application)
+     public function updateStatus(Request $request, Application $application)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'status' => 'required|in:accepted,rejected',
-            'admin_note' => 'nullable|string',
+            'admin_note' => 'nullable|string'
         ]);
 
-        $application->update($validated);
+        $application->update([
+            'status' => $data['status'],
+            'admin_note' => $data['admin_note'] ?? null,
+        ]);
 
-        // Send rejection email
-        if ($validated['status'] === 'rejected') {
-            Mail::raw("Your application has been rejected. Note: {$validated['admin_note']}", function($message) use ($application) {
-                $message->to($application->email)
-                    ->subject('Application Rejection');
-            });
+        // SEND MAIL ONLY WHEN REJECTED
+        if ($data['status'] === 'rejected') {
+            Mail::to($application->email)->send(
+                new ApplicationRejectedMail(
+                    $application->name,
+                    $data['admin_note']
+                )
+            );
         }
 
-        return redirect()->back()->with('success', 'Application status updated successfully!');
+        return back()->with('success', 'Application status updated');
     }
 }
