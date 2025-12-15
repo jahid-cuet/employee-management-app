@@ -1,24 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
 {
-    
     public function __construct()
-{
-    $this->middleware('auth'); // only authenticated users can access
+    {
 
-    // Employee permissions
-    $this->middleware('permission:view employees')->only('index');
-    $this->middleware('permission:create employees')->only(['create', 'store']);
-    $this->middleware('permission:edit employees')->only(['edit', 'update']);
-    $this->middleware('permission:delete employees')->only('destroy');
-}
-
+        $this->middleware('permission:view employees')->only('index');
+        $this->middleware('permission:create employees')->only(['create', 'store']);
+        $this->middleware('permission:edit employees')->only(['edit', 'update']);
+        $this->middleware('permission:delete employees')->only('destroy');
+    }
 
     public function index()
     {
@@ -34,17 +31,9 @@ class EmployeeController extends Controller
         return Inertia::render('employees/Create');
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        $validated = $request->validate([
-            'employee_id' => 'required|unique:employees',
-            'name'        => 'required|min:3',
-            'email'       => 'required|email|unique:employees',
-            'salary'      => 'required|numeric|min:0',
-            'designation' => 'required|min:2',
-        ]);
-
-        Employee::create($validated);
+        Employee::create($request->validated());
 
         return redirect()
             ->route('employees.index')
@@ -58,17 +47,9 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeRequest $request, Employee $employee)
     {
-        $validated = $request->validate([
-            'employee_id' => 'required|unique:employees,employee_id,' . $employee->id,
-            'name'        => 'required|min:3',
-            'email'       => 'required|email|unique:employees,email,' . $employee->id,
-            'salary'      => 'required|numeric|min:0',
-            'designation' => 'required|min:2',
-        ]);
-
-        $employee->update($validated);
+        $employee->update($request->validated());
 
         return redirect()
             ->route('employees.index')

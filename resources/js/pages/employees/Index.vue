@@ -5,17 +5,15 @@ import Button from '@/components/ui/button/Button.vue';
 import { reactive, ref } from 'vue';
 import { type BreadcrumbItem } from '@/types';
 
-// Page props
+
 const { employees } = usePage().props as any;
 
-// Reactive employee list
 const employeeList = reactive([...employees.data]);
 
-// Flash message (make reactive)
 const { flash } = defineProps<{ flash: { success?: string; error?: string } }>();
 const showSuccess = ref(true);
 
-// Breadcrumbs (optional)
+
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Employees', href: '/employees' }];
 
 // Delete modal state
@@ -51,16 +49,15 @@ function confirmDelete() {
 </script>
 
 <template>
+
     <Head title="Employees" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4 p-4">
 
             <!-- Flash Message -->
-            <div
-                v-if="showSuccess && flash?.success"
-                class="flex items-center justify-between rounded bg-green-100 p-2 text-green-700"
-            >
+            <div v-if="showSuccess && flash?.success"
+                class="flex items-center justify-between rounded bg-green-100 p-2 text-green-700">
                 <span>{{ flash.success }}</span>
                 <button class="px-2 font-bold" @click="showSuccess = false">×</button>
             </div>
@@ -95,7 +92,7 @@ function confirmDelete() {
                                 <Button size="sm" variant="secondary" class="cursor-pointer">Edit</Button>
                             </Link>
                             <Button size="sm" variant="destructive" class="cursor-pointer"
-                                    @click="openDeleteModal(employee.id)">
+                                @click="openDeleteModal(employee.id)">
                                 Delete
                             </Button>
                         </td>
@@ -114,8 +111,10 @@ function confirmDelete() {
                 <h2 class="text-lg font-bold text-red-600">Confirm Delete</h2>
                 <p>Are you sure you want to delete this employee?</p>
                 <div class="flex justify-end gap-3">
-                    <button class="rounded bg-gray-300 px-4 py-2 cursor-pointer" @click="showDeleteModal = false">Cancel</button>
-                    <button class="rounded bg-red-600 px-4 py-2 text-white cursor-pointer" @click="confirmDelete">Delete</button>
+                    <button class="rounded bg-gray-300 px-4 py-2 cursor-pointer"
+                        @click="showDeleteModal = false">Cancel</button>
+                    <button class="rounded bg-red-600 px-4 py-2 text-white cursor-pointer"
+                        @click="confirmDelete">Delete</button>
                 </div>
             </div>
         </div>

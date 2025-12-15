@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,7 +12,6 @@ class ArticleController extends Controller
 
       public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware('permission:view articles')->only('index');
         $this->middleware('permission:create articles')->only(['create','store']);
         $this->middleware('permission:edit articles')->only(['edit','update']);
@@ -34,18 +34,18 @@ class ArticleController extends Controller
         return Inertia::render('articles/Create');
     }
 
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         $validated = $request->validate([
             'title'   => 'required|min:3',
             'content' => 'required|min:10',
         ]);
 
-        Article::create([
-            'title'   => $validated['title'],
-            'content' => $validated['content'],
-            'user_id' => auth()->id(), // author
-        ]);
+Article::create([
+        'title'   => $request->title,
+        'content' => $request->content,
+        'user_id' => auth()->id(),
+    ]);
 
         return redirect()
             ->route('articles.index')
@@ -59,14 +59,14 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
-        $validated = $request->validate([
-            'title'   => 'required|min:3',
-            'content' => 'required|min:10',
-        ]);
+       
 
-        $article->update($validated);
+      $article->update([
+        'title'=>$request->title,
+        'content'=>$request->content,
+      ]);
 
         return redirect()
             ->route('articles.index')

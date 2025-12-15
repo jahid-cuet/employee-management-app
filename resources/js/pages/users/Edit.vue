@@ -88,7 +88,7 @@ const showSuccess = ref(true);
 
               <!-- Submit -->
               <div class="flex items-center">
-                <Button variant="secondary" size="lg" :disabled="processing">
+                <Button class="cursor-pointer" variant="secondary" size="lg" :disabled="processing">
                   <Spinner v-if="processing" />
                   <span v-else>Update User</span>
                 </Button>

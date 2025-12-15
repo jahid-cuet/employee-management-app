@@ -53,7 +53,7 @@ function confirmReject() {
             const index = pendingList.findIndex((a: any) => a.id === rejectId.value);
             if (index !== -1) {
                 const app = pendingList.splice(index, 1)[0];
-                rejectedList.push(app); // move to rejected tab
+                rejectedList.push(app); 
             }
             showRejectModal.value = false;
             rejectId.value = null;

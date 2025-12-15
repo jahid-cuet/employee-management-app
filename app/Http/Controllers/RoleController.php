@@ -2,83 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-
-
     public function index()
-{
-    return inertia('roles/Index', [
-        'roles' => Role::select('id', 'name')
-            ->with(['permissions:id,name'])
-            ->orderBy('id', 'desc')
-            ->get(),
-    ]);
-}
-
-
-    public function create()
-{
-    return inertia('roles/Create', [
-        'permissions' => Permission::select('id', 'name')->get(),
-    ]);
-}
-
-public function store(Request $request)
-
-{
-    $request->validate([
-        'name' => 'required|unique:roles,name|min:3',
-        'permissions' => 'array'
-    ]);
-
-    $role = Role::create(['name' => $request->name]);
-
-    if ($request->permissions) {
-        $role->syncPermissions($request->permissions);
+    {
+        return inertia('roles/Index', [
+            'roles' => Role::select('id', 'name')
+                ->with(['permissions:id,name'])
+                ->orderBy('id', 'desc')
+                ->get(),
+        ]);
     }
 
-    return redirect()->route('roles.index')
-        ->with('success', 'Role created successfully!');
-}
-
-
-
-public function edit(Role $role)
-{
-    return inertia('roles/Edit', [
-        'role' => $role->load('permissions:id,name'), // current permissions
-        'permissions' => Permission::select('id','name')->get(), // all permissions
-    ]);
-}
-
-  public function update(Request $request, Role $role)
+    public function create()
     {
-        $request->validate([
-            'name' => 'required|unique:roles,name,' . $role->id,
-            'permissions' => 'array',
+        return inertia('roles/Create', [
+            'permissions' => Permission::select('id', 'name')->get(),
         ]);
+    }
 
-        // Update role name
-        $role->update(['name' => $request->name]);
+    public function store(RoleRequest $request)
+    {
+        $role = Role::create(['name' => $request->name]);
 
-        // Sync permissions directly by IDs
         $role->syncPermissions($request->permissions ?? []);
 
         return redirect()->route('roles.index')
-                         ->with('success', 'Role updated successfully!');
+            ->with('success', 'Role created successfully!');
+    }
+
+    public function edit(Role $role)
+    {
+        return inertia('roles/Edit', [
+            'role' => $role->load('permissions:id,name'), // current permissions
+            'permissions' => Permission::select('id', 'name')->get(), // all permissions
+        ]);
+    }
+
+    public function update(RoleRequest $request, Role $role)
+    {
+        $role->update(['name' => $request->name]);
+
+        $role->syncPermissions($request->permissions ?? []);
+
+        return redirect()->route('roles.index')
+            ->with('success', 'Role updated successfully!');
     }
 
     public function destroy(Role $role)
-{
-    $role->delete();
+    {
+        $role->delete();
 
-    return redirect()->route('roles.index')
-        ->with('success', 'Role deleted successfully!');
-}
-
+        return redirect()->route('roles.index')
+            ->with('success', 'Role deleted successfully!');
+    }
 }

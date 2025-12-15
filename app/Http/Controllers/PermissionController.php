@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
@@ -8,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    //This method will show Permission page
+    
 public function index() {
     $permissions = Permission::orderBy('created_at','ASC')->get();
 
@@ -17,27 +19,23 @@ public function index() {
     ]);
 }
 
-    //This method will show Create Permission page
+  
     public function create(){
          return Inertia::render('permissions/Create');
 
     }
 
-    //This method will insert a Permission in DB
-public function store(Request $request)
+public function store(PermissionRequest $request)
 {
-    $validated = $request->validate([
-        'name' => 'required|unique:permissions|min:3',
-    ]);
-    Permission::create([
-        'name' => $validated['name'],
-    ]);
-return redirect()->route('permissions.index')->with('success', 'Permission added successfully!');
+   
+   Permission::create($request->validated());
+   return redirect()
+   ->route('permissions.index')
+   ->with('success', 'Permission added successfully!');
 
 }
 
 
-    //This method will show edit Permission page
 public function edit(Permission $permission)
 {
     return inertia('permissions/Edit', [
@@ -45,16 +43,10 @@ public function edit(Permission $permission)
     ]);
 }
 
-    //This method will show Update Permission in DB
-public function update(Request $request, Permission $permission)
+    
+public function update(PermissionRequest $request, Permission $permission)
 {
-    $request->validate([
-        'name' => 'required|min:3|unique:permissions,name,' . $permission->id
-    ]);
-
-    $permission->update([
-        'name' => $request->name
-    ]);
+   $permission->update($request->validated());
 
     return redirect()->route('permissions.index')
         ->with('success', 'Permission updated successfully!');

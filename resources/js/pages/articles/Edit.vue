@@ -23,12 +23,11 @@ const breadcrumbs: BreadcrumbItem[] = [
       <Form @submit.prevent="form.put(`/articles/${article.id}`)" class="space-y-6">
         <div class="grid gap-2">
           <label for="title">Title</label>
-          <input id="title" type="text" v-model="form.title"
-                 class="mt-1 block w-full border p-2 rounded" required />
+          <input id="title" type="text" v-model="form.title" class="mt-1 block w-full border p-2 rounded" required />
 
           <label for="content">Content</label>
-          <textarea id="content" v-model="form.content"
-                    class="mt-1 block w-full border p-2 rounded" required></textarea>
+          <textarea id="content" v-model="form.content" class="mt-1 block w-full border p-2 rounded"
+            required></textarea>
         </div>
 
         <div class="flex items-center">
