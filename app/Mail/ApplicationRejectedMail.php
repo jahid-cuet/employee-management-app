@@ -4,8 +4,6 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ApplicationRejectedMail extends Mailable
@@ -17,26 +15,13 @@ class ApplicationRejectedMail extends Mailable
         public string $reason
     ) {}
 
-    public function envelope(): Envelope
+    public function build(): self
     {
-        return new Envelope(
-            subject: 'Application Update – Rejection Notice'
-        );
-    }
-
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.application_rejected',
-            with: [
-                'name'   => $this->name,
+        return $this->subject('Application Update Rejection Notice')
+            ->view('emails.application_rejected')
+            ->with([
+                'name' => $this->name,
                 'reason' => $this->reason,
-            ]
-        );
-    }
-
-    public function attachments(): array
-    {
-        return [];
+            ]);
     }
 }
