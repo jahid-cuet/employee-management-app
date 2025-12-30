@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -68,5 +69,11 @@ Route::put('/applications/{application}/status', [ApplicationController::class, 
 Route::get('/apply', [ApplicationController::class, 'create']);
 Route::post('/apply', [ApplicationController::class, 'store']);
 
+
+Route::get('/check-pdf', function () {
+    $pdf = PDF::loadHTML('<h1 style="color: blue;">Success! Snappy is working.</h1>');
+    // return $pdf->download('hello-world.pdf');
+    return $pdf->inline();
+});
 
 require __DIR__.'/settings.php';

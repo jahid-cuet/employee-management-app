@@ -10,50 +10,39 @@ import Spinner from '@/components/ui/spinner/Spinner.vue';
 
 <template>
     <Head title="Create Employee" />
-
     <AppLayout>
         <div class="flex min-h-screen items-center justify-center bg-gray-100">
             <div class="w-full max-w-md bg-white p-6 rounded-xl shadow">
-                <Form
-                    action="/employees"
-                    method="post"
-                    reset-on-success
-                    v-slot="{ errors, processing }"
-                >
+                <Form action="/employees" method="post" reset-on-success v-slot="{ errors, processing }">
                     <div class="space-y-4">
                         <div>
-                            <Label>Employee ID</Label>
-                            <Input name="employee_id" />
+                            <Label htmlFor="employee_id">Employee ID</Label>
+                            <Input name="employee_id" id="employee_id" class="mt-1 block w-full" required autofocus />
                             <InputError :message="errors.employee_id" />
                         </div>
-
                         <div>
-                            <Label>Name</Label>
-                            <Input name="name" />
+                            <Label htmlFor="name">Name</Label>
+                            <Input name="name" id="name" type="text" class="mt-1 block w-full" required autofocus />
                             <InputError :message="errors.name" />
                         </div>
-
                         <div>
-                            <Label>Email</Label>
-                            <Input name="email" />
+                            <Label htmlFor="email">Email</Label>
+                            <Input name="email" id="email" type="email" class="mt-1 block w-full" required autofocus />
                             <InputError :message="errors.email" />
                         </div>
-
                         <div>
-                            <Label>Designation</Label>
-                            <Input name="designation" />
+                            <Label htmlFor="designation">Designation</Label>
+                            <Input name="designation" id="designation" type="text" class="mt-1 block w-full" required
+                                autofocus />
                             <InputError :message="errors.designation" />
                         </div>
-
                         <div>
-                            <Label>Salary</Label>
-                            <Input name="salary" type="number" />
+                            <Label htmlFor="salary">Salary</Label>
+                            <Input name="salary" type="number" class="mt-1 block w-full" required autofocus />
                             <InputError :message="errors.salary" />
                         </div>
 
-                        <Button  size="sm"
-                                variant="secondary"
-                                class="cursor-pointer">
+                        <Button size="sm" variant="secondary" class="cursor-pointer">
                             <Spinner v-if="processing" />
                             <span v-else>Create</span>
                         </Button>

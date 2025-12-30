@@ -20,32 +20,27 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Employees', href: '/employees' 
 const showDeleteModal = ref(false);
 const deleteId = ref<number | null>(null);
 
-// Open delete modal
+// ekhane delte modal ta open korlam
 function openDeleteModal(id: number) {
     deleteId.value = id;
     showDeleteModal.value = true;
 }
 
-// Confirm delete
 function confirmDelete() {
     if (!deleteId.value) return;
 
     router.delete(`/employees/${deleteId.value}`, {
         onSuccess: () => {
-            // Remove from reactive list
+            // page relod na kora obdi employee theke jabe tai manuaally list theke remove kora holo
             const index = employeeList.findIndex((e: any) => e.id === deleteId.value);
             if (index !== -1) employeeList.splice(index, 1);
-
-            // Update flash message
-            flash.success = 'Employee deleted successfully!';
-            showSuccess.value = true;
-
             // Close modal
-            deleteId.value = null;
+            deleteId.value = null;      // Delete seshe id null kore dilam
             showDeleteModal.value = false;
         },
     });
 }
+
 </script>
 
 <template>
