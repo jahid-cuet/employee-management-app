@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PaymentGatewayController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -51,6 +52,12 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('users.upda
 // This is for Articles
 
 Route::resource('articles', ArticleController::class);
+
+Route::get('/articles/{article}/payments', [PaymentGatewayController::class, 'index'])
+     ->name('payments.index');
+
+Route::get('/articles/{article}/payments/{gateway}', [PaymentGatewayController::class, 'pay'])
+     ->name('gateways.payment-accounts');
 
 //This is for Employees
 

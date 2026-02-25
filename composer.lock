@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec33ee307ad968b1a24c1dc90b2c2316",
+    "content-hash": "de39df234fe9c48b1e76d1470141f044",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3903,6 +3903,66 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.1"
             },
             "time": "2025-09-04T20:59:21+00:00"
+        },
+        {
+            "name": "softscholar/laravel-payments",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/softscholar/laravel-payments.git",
+                "reference": "d77f2d10765edd3e14af740af57df0b321089ead"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/softscholar/laravel-payments/zipball/d77f2d10765edd3e14af740af57df0b321089ead",
+                "reference": "d77f2d10765edd3e14af740af57df0b321089ead",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "dev-main"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Softscholar\\Payment\\PaymentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Softscholar\\Payment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Atiqur Rahman",
+                    "email": "atiq@softscholar.com",
+                    "homepage": "https://softscholar.com"
+                }
+            ],
+            "description": "Payment gateway service by SoftScholar",
+            "keywords": [
+                "gateway",
+                "laravel",
+                "nagad",
+                "payment",
+                "softscholar",
+                "tokenization"
+            ],
+            "support": {
+                "issues": "https://github.com/softscholar/laravel-payments/issues",
+                "source": "https://github.com/softscholar/laravel-payments/tree/v1.0.2"
+            },
+            "time": "2025-05-06T07:16:26+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -10020,12 +10080,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

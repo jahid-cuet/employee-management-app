@@ -23,6 +23,7 @@ class ArticleController extends Controller
         $articles = Article::with('author:id,name')
             ->latest()
             ->paginate(10);
+            // dd($articles);
 
         return Inertia::render('articles/Index', [
             'articles' => $articles

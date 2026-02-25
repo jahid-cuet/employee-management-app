@@ -66,8 +66,8 @@ function confirmDelete() {
             <th class="px-4 py-2 border">ID</th>
             <th class="px-4 py-2 border">Title</th>
             <th class="px-4 py-2 border">Content</th>
-            <th class="px-4 py-2 border">Author</th>
             <th class="px-4 py-2 border">Edit</th>
+            <th class="px-4 py-2 border">Payment</th>
             <th class="px-4 py-2 border">Delete</th>
           </tr>
         </thead>
@@ -76,12 +76,18 @@ function confirmDelete() {
             <td class="px-4 py-2 border">{{ article.id }}</td>
             <td class="px-4 py-2 border">{{ article.title }}</td>
             <td class="px-4 py-2 border">{{ article.content }}</td>
-            <td class="px-4 py-2 border">{{ article.author.name }}</td>
+
             <td class="px-4 py-2 border">
               <Link :href="`/articles/${article.id}/edit`">
                 <Button variant="secondary" size="icon"
                         class="group h-9 w-9 cursor-pointer">Edit</Button>
               </Link>
+            </td><td class="px-4 py-2 border">
+<Link :href="`/articles/${article.id}/payments`">
+    <Button class="w-full h-12 text-md font-bold cursor-pointer">
+        Pay with {{ gateway.name }}
+    </Button>
+</Link>
             </td>
             <td class="px-4 py-2 border">
               <Button variant="destructive" size="lg"

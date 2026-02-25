@@ -53,7 +53,7 @@ const mainNavItems: NavItem[] = [
         title: 'Applicatons',
         href: '/application',
         icon: LayoutGrid,
-    },
+    },   
 ];
 
 const footerNavItems: NavItem[] = [
